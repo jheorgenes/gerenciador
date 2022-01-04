@@ -1,5 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:url value="/novaEmpresa" var="linkServletNovaEmpresa" /><!-- Importação para atribuir um link para o formulário -->
+<c:url value="/entrada" var="linkEntradaServlet" /><!-- Importação para atribuir um link para o formulário -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,9 +9,11 @@
     <title>Formulário Nova Empresa</title>
 </head>
 <body>
-    <form action="${ linkServletNovaEmpresa }" method="post"><!-- Definido a variável contendo a URL para a outra página -->
+	<c:import url="logout-parcial.jsp" />
+    <form action="${ linkEntradaServlet }" method="post"><!-- Definido a variável contendo a URL para a outra página -->
     	Nome: <input type="text" name="nome" />
     	Data Abertura: <input type="text" name="data" />
+    	<input type="hidden" name="acao" value="NovaEmpresa" />
     	<input type="submit">
     </form>
 </body>

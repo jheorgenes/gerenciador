@@ -5,17 +5,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.alura.gerenciador.model.Banco;
+import br.com.alura.gerenciador.model.Empresa;
+
 /**
  * Servlet implementation class NovaEmpresaServlet
  */
-@WebServlet("/novaEmpresa") //Define que a classe é um Servlet e já define também qual é a rota a ser seguida
+//@WebServlet("/novaEmpresa") //Define que a classe é um Servlet e já define também qual é a rota a ser seguida
 public class NovaEmpresaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -26,10 +27,12 @@ public class NovaEmpresaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Cadastrando nova empresa");
 		
+		/* Lendo os parametros */
 		String nomeEmpresa = request.getParameter("nome"); //buscando no html o input do name 'nome' e atribuíndo a variável (sempre captura string)
 		String paramDataEmpresa = request.getParameter("data"); //buscando no html o input do name data e atribuíndo a variável (sempre captura string)
 		Date dataAbertura = null; //Criando uma instancia nula do tipo Date (object) 
 		
+		/* Fazendo o parse ou conversão */
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); //Definindo uma instância de formatação de data (recebendo o padrão de formatação definido)
 			dataAbertura = sdf.parse(paramDataEmpresa); //Adiciona na instância a variável que contém a String da data e depois atribui para um objeto do tipo Date
@@ -37,6 +40,7 @@ public class NovaEmpresaServlet extends HttpServlet {
 			throw new ServletException(e); //Relançando a exception ServletException caso falhar, fazendo a injeção da exception original para não perdê-la.
 		}
 		
+		/* Populando os objetos */
 		Empresa empresa = new Empresa();
 		empresa.setNome(nomeEmpresa); //Inserindo o nome da empresa
 		empresa.setDataAbertura(dataAbertura);
